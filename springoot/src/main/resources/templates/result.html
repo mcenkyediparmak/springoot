@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Result</title>
+  <meta http-equiv="refresh" content="30" />
+</head>
+<body>
+
+<div th:if="${param.error}">
+  <div class="alert alert-danger">Invalid transaction please try again</div>
+</div>
+
+<h1>[[${user.username}]]'s Portfolio</h1>
+<h2>[[${user.credit}]]$</h2>
+<table id="portfolio">
+  <tr>
+    <th>Company</th>
+    <th>Share Count</th>
+    <th>Share Value</th>
+    <th>Available Share</th>
+    <th>Change(%)</th>
+  </tr>
+  <tr th:each="company_value, coStat: ${company_values}">
+    <td th:text="${company_value.name}"/>
+    <td th:text="${share_in_company[coStat.index]}"/>
+    <td th:text="${company_value.worth_per_share}"/>
+    <td th:text="${company_value.free_share}"/>
+    <td th:text="${change[coStat.index]}"/>
+    <td>
+  </tr>
+</table>
+<h2>Buy(Negative Values -> Sell)</h2>
+<form method="post"
+      role="form"
+      th:action="@{/result/transaction}"
+      th:object="${transaction}"
+      class="form" >
+  <p><input type="number"
+            id="amount"
+            name="amount"
+            class="form-control"
+            value="0"
+            th:field="*{amount}"/>
+    <select class="form-control" id="dropdown" th:field="*{company}">
+      <option th:each="company_value, coStat: ${company_values}" th:value="${company_value.name}" th:text="${company_value.name}"></option>
+    </select></p>
+
+  <p><input type="submit" value="Submit" /></p>
+</form></td>
+
+
+
+
+</body>
+</html>

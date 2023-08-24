@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+</head>
+<body>
+<div th:if="${param.success}">
+  <div class="alert alert-info">
+    You have successfully registered our app!
+  </div>
+</div>
+<div th:if="${param.error}">
+  <div class="alert alert-info">
+    There have been a problem!
+  </div>
+</div>
+<h1>Register</h1>
+<form method="post"
+      role="form"
+      th:action="@{/register/save}"
+      th:object="${user}">
+  <p>username: <input
+                      class="form-control" id="username"
+                      name="username" placeholder="Pick a username"
+                      type="text" th:field="*{username}" /></p>
+  <p>password: <input class="form-control" id="password" name="password"
+                      placeholder="Enter Password" type="password"
+                      th:field="*{password}" /></p>
+  <p><input type="submit" value="Submit" /></p>
+</form>
+</body>
+</html>
